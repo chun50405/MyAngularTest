@@ -1,0 +1,7 @@
+{
+  "/stock/api/getStockInfo.jsp": {
+    "target": "https://mis.twse.com.tw",
+    "secure": false,
+    "changeOrigin": true
+  }
+}
