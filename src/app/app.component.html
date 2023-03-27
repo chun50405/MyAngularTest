@@ -24,10 +24,9 @@
         <div class="card-header">
           Featured
         </div>
-
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-striped table-bordered">
               <thead>
                 <th>商品</th>
                 <th>成交</th>
@@ -42,6 +41,9 @@
                 <tr *ngFor="let row of tableParams">
                   <td>{{row.name}}</td>
                   <td [ngClass]="{ 'table-success': row.color == 'success', 'table-danger': row.color=='danger' }">
+                    <div *ngIf="row.isUp; then thenBlock else elseBlock"></div>
+                    <ng-template #thenBlock><i class="bi bi-caret-up-fill"></i></ng-template>
+                    <ng-template #elseBlock><i class="bi bi-caret-down-fill"></i></ng-template>
                     {{row.price | number: '1.0-2'}}
                   </td>
                   <td [ngClass]="{ 'table-success': row.color == 'success', 'table-danger': row.color=='danger' }">

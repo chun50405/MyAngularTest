@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {
   trigger,
@@ -9,6 +9,12 @@ import {
   group
   // ...
 } from '@angular/animations';
+
+import * as moment from 'moment';
+
+
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -28,39 +34,27 @@ import {
     ])
   ]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'MyAngularTest';
   tableParams: any[] = [];
   lastPriceList: any[] = [];
   theInterval: any;
   constructor(private http: HttpClient) {
-    this.getStockInfo();
 
 
-    this.theInterval = setInterval(async () => {
-      await this.getStockInfo();;
-      for(let idx in this.tableParams) {
-        if(this.lastPriceList[idx] != this.tableParams[idx].price) {
-          this.tableParams[idx].priceChange = true
-          this.lastPriceList[idx] = this.tableParams[idx].price
-        } else {
-          this.tableParams[idx].priceChange = false
-        }
-      }
-      console.log('this.lastPriceList =>', this.lastPriceList)
-      console.log('this.tableParams =>', this.tableParams)
-    }, 10000)
   }
 
 
 
-  async getStockInfo(stockList = ['tse_2330.tw', 'tse_0050.tw', 'tse_2357.tw']) {
+  async getStockInfo(stockList:any) {
     let result:any = []
-
-
+    let list:any = []
+    for(let row of stockList) {
+      list.push(row.code)
+    }
 
     let query = {
-      ex_ch: stockList.join('|')
+      ex_ch: list.join('|')
     }
 
     console.log('query=', query)
@@ -82,8 +76,8 @@ export class AppComponent {
         range: (Math.abs(oneStock.z - oneStock.y) / oneStock.y),
         singleAmount: oneStock.ps,
         totalAmount: oneStock.v,
-        buyAmount: oneStock.g.split('_')[0],
-        sellAmount: oneStock.g.split('_')[0],
+        buyAmount: oneStock.g ? oneStock.g.split('_')[0]: '',
+        sellAmount: oneStock.g ? oneStock.g.split('_')[0]: '',
         highestPrice: oneStock.h,
         lowestPrice: oneStock.l,
         openPrice: oneStock.o,
@@ -92,6 +86,7 @@ export class AppComponent {
         color: (oneStock.z - oneStock.y) > 0 ? 'danger' : 'success',
         highestColor: (oneStock.h - oneStock.o) >= 0 ? 'danger' : 'success',
         lowestColor: (oneStock.l - oneStock.o) >= 0 ? 'danger' : 'success',
+        isUp: (oneStock.z - oneStock.y) > 0 ? true : false,
       }
       result.push(stockObj)
     }
@@ -100,7 +95,40 @@ export class AppComponent {
 
   }
 
+  async getGroupStock() {
+    const result = this.http.get('/assets/groupStock.json').toPromise();
+
+    return result
+  }
+
+
+  async ngOnInit() {
+    const groupStock:any = await this.getGroupStock();
+    this.getStockInfo(groupStock['1']);
+    const marketOpenStart = moment().set({hour: 9, minute: 0, second: 0})
+    const marketOpenEnd = moment().set({hour: 13, minute: 30, second: 0})
+    const now = moment();
+
+    if(now.isBetween(marketOpenStart, marketOpenEnd)) {
+      this.theInterval = setInterval(async () => {
+          await this.getStockInfo(groupStock['1']);
+          for(let idx in this.tableParams) {
+            if(this.lastPriceList[idx] != this.tableParams[idx].price) {
+              this.tableParams[idx].priceChange = true
+              this.lastPriceList[idx] = this.tableParams[idx].price
+            } else {
+              this.tableParams[idx].priceChange = false
+            }
+          }
+          console.log('this.lastPriceList =>', this.lastPriceList)
+          console.log('this.tableParams =>', this.tableParams)
 
 
 
+      }, 10000)
+
+    } else {
+      console.log('isNotOpenTime')
+    }
+  }
 }
