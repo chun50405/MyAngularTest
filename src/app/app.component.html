@@ -38,7 +38,8 @@
                 <th>開盤</th>
               </thead>
               <tbody>
-                <tr *ngFor="let row of tableParams">
+
+                <tr *ngFor="let row of tableParams" [@priceChange]="row.priceChange ? 'priceChange' : 'priceNotChange'" (@priceChange.done)="row.priceChange = false">
                   <td>{{row.name}}</td>
                   <td [ngClass]="{ 'table-success': row.color == 'success', 'table-danger': row.color=='danger' }">
                     <div *ngIf="row.isUp; then thenBlock else elseBlock"></div>
