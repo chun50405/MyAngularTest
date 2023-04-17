@@ -8,9 +8,11 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 
 因為測試時有使用 proxy 代理 故啟動時 請使用 ng serve --proxy-config proxy.conf.json
 
-## Code scaffolding
+## 注意事項
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+ 1.股票資訊來源 https://mis.twse.com.tw
+ 2.圖表使用angular-highchart
+
 
 ## Build
 
