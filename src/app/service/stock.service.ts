@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, interval, of } from "rxjs";
+import { Observable, interval, of, forkJoin, map, catchError   } from "rxjs";
+import { concatMap  } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-
+import * as moment from 'moment';
 @Injectable({
   providedIn: 'root'
 })
@@ -70,6 +71,84 @@ export class StockService {
     return result[groupName]
   }
 
+   // const observables = months.map(month => this.fetchData(year, month));
+  //先直接查一年內 因為現在此API似乎只能一次查一個月(查詢多次 1~12月)
+  getStockDayHistory(code: string):Observable<any> {
+    let observables = []
+    let query:any = {
+      response: 'json',
+      date: moment().set({date: 1}),
+      stockNo: code
+    }
+
+    for(let i = 0 ; i <= 6 ; i++) {
+      query.date = moment().set({date: 1}).subtract(i, 'month').format('YYYYMMDD');
+      const observable = this.http.get<any>('/exchangeReport/STOCK_DAY', {params: query})
+      observables.push(observable)
+    }
+
+    return forkJoin(observables).pipe(
+      map(results => {
+        let combinedData:any = {
+          title: null,
+          data: []
+        };
+
+        for(let result of results) {
+
+          if(!combinedData.title) {
+            combinedData.title = result.title.split(" ")[2];
+          }
+          // console.log('result=', result.data)
+          if(result.data) {
+            for(let row of result.data) {
+              const [year, month, day] = row[0].split("/").map(Number);
+              const timestamp = new Date(1911 + year, month - 1, day).getTime();
+              let obj = {
+                date: timestamp,
+                price: Number(row[6])
+              }
+              combinedData.data.push(obj);
+            }
+          }
+
+        }
+
+        // console.log('combinedData=', combinedData)
+        combinedData.data.sort((a:any, b:any) => a.date - b.date);
+        return combinedData;
+      }),
+      catchError(error => {
+        console.log('Error fetching stock data:', error);
+        return of([]);
+      })
+    );
+  }
 
 
+  getFakeStockDayHistory(code: string):Observable<any> {
+    const data = [
+      {date: '2023/04/01', price: 500},
+      {date: '2023/04/02', price: 501},
+      {date: '2023/04/03', price: 502},
+      {date: '2023/04/04', price: 503},
+      {date: '2023/04/05', price: 504},
+      {date: '2023/04/06', price: 505},
+      {date: '2023/04/07', price: 506},
+      {date: '2023/04/08', price: 507},
+      {date: '2023/04/09', price: 508},
+      {date: '2023/04/10', price: 509},
+      {date: '2023/04/12', price: 510},
+      {date: '2023/04/13', price: 512},
+      {date: '2023/04/14', price: 515},
+      {date: '2023/04/15', price: 520},
+      {date: '2023/04/16', price: 522},
+      {date: '2023/04/17', price: 523},
+      {date: '2023/04/18', price: 528},
+      {date: '2023/04/19', price: 533},
+      {date: '2023/04/20', price: 535},
+      {date: '2023/04/21', price: 530}
+    ]
+    return of(data)
+  }
 }

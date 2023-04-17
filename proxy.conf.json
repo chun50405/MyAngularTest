@@ -3,5 +3,15 @@
     "target": "https://mis.twse.com.tw",
     "secure": false,
     "changeOrigin": true
+  },
+  "/exchangeReport/MI_5MINS_INDEX": {
+    "target": "https://www.twse.com.tw",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/exchangeReport/STOCK_DAY": {
+    "target": "https://www.twse.com.tw",
+    "secure": false,
+    "changeOrigin": true
   }
 }

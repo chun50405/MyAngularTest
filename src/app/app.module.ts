@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Routes, RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { ChartModule } from 'angular-highcharts';
 // Module end
 
 
@@ -34,6 +36,8 @@ const routes: Routes = [
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ChartModule,
     RouterModule.forRoot(routes)
   ],
   exports: [RouterModule],

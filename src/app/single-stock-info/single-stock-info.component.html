@@ -1,1 +1,22 @@
-<p>個股查詢！！！</p>
+<div class="container-fluid ">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-3">
+               <input type="text" [(ngModel)]="code" class="form-control" placeholder="輸入股票代號或是名稱">
+            </div>
+            <div class="col-3">
+              <button class="btn btn-success" (click)="search()">查詢</button>
+            </div>
+          </div>
+        </div>
+        <div id="highCharts" class="card-body">
+          <div [chart]="chart"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
