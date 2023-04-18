@@ -151,4 +151,22 @@ export class StockService {
     ]
     return of(data)
   }
+
+
+  getStockCompanyInfo(code: string):Observable<any> {
+
+    return this.http.get<any>('/v1/opendata/t187ap03_L')
+    .pipe(
+      map(response => {
+
+        let result = response.filter((data:any) => {
+          return data['公司代號'] == code
+        })
+        
+        return result[0]
+      })
+    )
+
+  }
+
 }
