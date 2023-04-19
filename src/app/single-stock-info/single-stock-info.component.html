@@ -13,26 +13,72 @@
           </div>
         </div>
         <div id="highCharts" class="card-body">
-          <ul class="nav nav-pills">
+          <ul class="nav nav-pills" *ngIf="stockCompanyInfo">
             <li class="nav-item" role="presentation">
               <button class="nav-link active" id="pills-trend-tab" data-toggle="pill" data-target="#pills-trend" type="button" role="tab" aria-controls="pills-trend" aria-selected="true">走勢圖</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="pills-profile-tab" data-toggle="pill" data-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</button>
+              <button class="nav-link" id="pills-profile-tab" data-toggle="pill" data-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">基本</button>
             </li>
             <li class="nav-item" role="presentation">
               <button class="nav-link" id="pills-contact-tab" data-toggle="pill" data-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</button>
             </li>
           </ul>
 
-
-          <div class="tab-content" id="pills-tabContent">
+<!-- {出表日期: '1120418', 公司代號: '2330', 公司名稱: '台灣積體電路製造股份有限公司', 公司簡稱: '台積電', 外國企業註冊地國: '－ ', …} -->
+          <div class="tab-content" id="pills-tabContent" *ngIf="stockCompanyInfo">
             <div class="tab-pane fade show active" id="pills-trend" role="tabpanel" aria-labelledby="pills-trend-tab">
                 <div [chart]="chart"></div>
             </div>
             <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-              {{stockCompanyInfo$}}
+              <table class="table table-bordered">
+                <tbody>
+                  <tr >
+                    <th scope="row" class="w-25 table-active">公司名稱</th>
+                    <td>{{ stockCompanyInfo['公司名稱'] }}</td>
+                    <th scope="row" class="w-25 table-active">公司代號</th>
+                    <td>{{ stockCompanyInfo['公司代號'] }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" class="w-25 table-active">住址</th>
+                    <td>{{ stockCompanyInfo['住址'] }}</td>
+                    <th scope="row" class="w-25 table-active">公司簡稱</th>
+                    <td>{{ stockCompanyInfo['公司簡稱'] }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" class="w-25 table-active">實收資本額</th>
+                    <td>{{ stockCompanyInfo['實收資本額'] | currency:'TWD':'symbol':'1.2-2' }}</td>
+                    <th scope="row" class="w-25 table-active">成立日期</th>
+                    <td>{{ stockCompanyInfo['成立日期'] }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" class="w-25 table-active">營利事業統一編號</th>
+                    <td>{{ stockCompanyInfo['營利事業統一編號'] }}</td>
+                    <th scope="row" class="w-25 table-active">發言人</th>
+                    <td>{{ stockCompanyInfo['發言人'] }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" class="w-25 table-active">網址</th>
+                    <td>{{ stockCompanyInfo['網址'] }}</td>
+                    <th scope="row" class="w-25 table-active">總機電話</th>
+                    <td>{{ stockCompanyInfo['總機電話'] }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" class="w-25 table-active">總經理</th>
+                    <td>{{ stockCompanyInfo['總經理'] }}</td>
+                    <th scope="row" class="w-25 table-active">英文簡稱</th>
+                    <td>{{ stockCompanyInfo['英文簡稱'] }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" class="w-25 table-active">董事長</th>
+                    <td>{{ stockCompanyInfo['董事長'] }}</td>
+                    <th scope="row" class="w-25 table-active">成立日期</th>
+                    <td>{{ stockCompanyInfo['成立日期'] }}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
+
             <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
           </div>
         </div>

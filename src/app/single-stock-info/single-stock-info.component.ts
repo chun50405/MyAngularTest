@@ -20,8 +20,8 @@ export class SingleStockInfoComponent {
 
   info:any;
 
-  stockDataHistory$:Observable<[]> = of([])
-  stockCompanyInfo$:any
+  stockCompanyInfo:any;
+
 
   chart:any;
 
@@ -122,7 +122,7 @@ export class SingleStockInfoComponent {
 
     this.stockService.getStockCompanyInfo(this.code).subscribe(data => {
       console.log('getStockCompanyInfo data=>', data)
-      this.stockCompanyInfo$ = data
+      this.stockCompanyInfo = data
     });
   }
 
