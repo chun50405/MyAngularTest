@@ -82,10 +82,12 @@ export class SingleStockInfoComponent {
        name: data.title,
        type: 'area',
        data: data.data.map((d:any) => {
-
          return [d.date, d.price];
        })
-     }]
+     }],
+     accessibility: {
+      enabled: false
+    }
    });
 
    });
