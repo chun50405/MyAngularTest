@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { StockService } from "../service/stock.service";
 import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Observable, interval, of } from "rxjs";
-import { Chart } from 'angular-highcharts';
+import { Chart, StockChart } from 'angular-highcharts';
 import * as moment from 'moment';
 import * as Highcharts from 'highcharts';
 
@@ -43,7 +43,10 @@ export class SingleStockInfoComponent {
      console.log(data);
      // 在這裡處理獲得的資料，例如顯示在畫面上
 
-     this.chart = new Chart({
+     this.chart = new StockChart({
+     rangeSelector: {
+          selected: 1
+      },
      chart: {
        type: 'line',
        renderTo: 'highCharts'
@@ -75,43 +78,10 @@ export class SingleStockInfoComponent {
      data: {
        // dateFormat: 'YYYY/mm/dd'
      },
-     exporting: {
-        buttons: {
-          contextButton: { // 隱藏內建下拉選單
-            enabled: false
-          },
-          customButton1: {
-            text: '1 Week',
-            onclick: () => {
-            let weekData = data.data.filter((d:any) => {
-              return moment(d.date).isBetween(moment().subtract(7,'day'), moment())
-            })
-              this.chart.ref.series[0].setData(weekData.map((d:any) =>  [d.date, d.price] ), true);
-            }
-          },
-          customButton2: {
-            text: '1 Month',
-            onclick: () => {
-              let monthData = data.data.filter((d:any) => {
-                return moment(d.date).isBetween(moment().subtract(1,'month'), moment())
-              })
-                this.chart.ref.series[0].setData(monthData.map((d:any) =>  [d.date, d.price] ), true);
-            }
-          },
-          customButton3: {
-            text: 'reset',
-            onclick: () => {
-              this.chart.ref.series[0].setData(data.data.map((d:any) =>  [d.date, d.price] ), true);
-            }
-          },
-        },
-        enabled: true
-      },
      series: [{
        name: data.title,
        type: 'area',
        data: data.data.map((d:any) => {
-
 
          return [d.date, d.price];
        })
