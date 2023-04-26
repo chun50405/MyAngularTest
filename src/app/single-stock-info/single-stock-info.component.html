@@ -13,17 +13,28 @@
           </div>
         </div>
         <div id="highCharts" class="card-body">
-          <ul class="nav nav-pills" *ngIf="stockCompanyInfo">
-            <li class="nav-item" role="presentation">
-              <button class="nav-link active" id="pills-trend-tab" data-toggle="pill" data-target="#pills-trend" type="button" role="tab" aria-controls="pills-trend" aria-selected="true">走勢圖</button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="pills-profile-tab" data-toggle="pill" data-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">基本</button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="pills-contact-tab" data-toggle="pill" data-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</button>
-            </li>
-          </ul>
+          <div class="row justify-content-end" *ngIf="stockCompanyInfo">
+            <div class="col-2">
+              <button class="btn btn-primary" type="button" name="button" (click)="addIntoSelfSelect(code)" [disabled]="isInGroup">
+                <i class="bi bi-star" *ngIf="!isInGroup">加入自選股</i>
+                <i class="bi bi-star-fill" *ngIf="isInGroup">已為自選股</i>
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <ul class="nav nav-pills" *ngIf="stockCompanyInfo">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="pills-trend-tab" data-toggle="pill" data-target="#pills-trend" type="button" role="tab" aria-controls="pills-trend" aria-selected="true">走勢圖</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-profile-tab" data-toggle="pill" data-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">基本</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-contact-tab" data-toggle="pill" data-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</button>
+              </li>
+            </ul>
+          </div>
+
 
           <div class="tab-content" id="pills-tabContent" *ngIf="stockCompanyInfo">
             <div class="tab-pane fade show active" id="pills-trend" role="tabpanel" aria-labelledby="pills-trend-tab">

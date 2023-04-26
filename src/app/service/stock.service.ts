@@ -66,9 +66,24 @@ export class StockService {
   }
 
   async getStockGroup(groupName:string = '1') {
-    const result:any = await this.http.get('/assets/groupStock.json').toPromise()
+    const result:any = await this.http.get('/stock/getStockGroup').toPromise()
     // return result[groupName]
     return result[groupName]
+  }
+
+  async addStockToStockGroup(addData:any, groupName:string = '1') {
+    const theStockGroup:any = await this.getStockGroup();
+    theStockGroup.push(addData)
+    await this.http.put('/stock/editStockGroup', {jsonData: theStockGroup, groupName: groupName}).toPromise();
+  }
+
+  async checkStockIsInGroup(stockNo:string) {
+    const theStockGroup:any = await this.getStockGroup();
+
+    let isInGroup = theStockGroup.some((item:any) => {
+      return item.code == `tse_${stockNo}.tw`;
+    })
+    return isInGroup;
   }
 
    // const observables = months.map(month => this.fetchData(year, month));
@@ -162,7 +177,7 @@ export class StockService {
         let result = response.filter((data:any) => {
           return data['公司代號'] == code
         })
-        
+
         return result[0]
       })
     )

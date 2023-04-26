@@ -17,14 +17,9 @@ import HC_exporting from 'highcharts/modules/exporting'; //呈現匯出按鈕�
 })
 export class SingleStockInfoComponent {
   code:string = "";
-
-  info:any;
-
   stockCompanyInfo:any;
-
-
   chart:any;
-
+  isInGroup:boolean = false;
 
 
 
@@ -92,12 +87,21 @@ export class SingleStockInfoComponent {
 
    });
 
-    this.stockService.getStockCompanyInfo(this.code).subscribe(data => {
+    this.stockService.getStockCompanyInfo(this.code).subscribe(async data => {
       console.log('getStockCompanyInfo data=>', data)
-      this.stockCompanyInfo = data
+      this.stockCompanyInfo = data;
+      this.isInGroup = await this.stockService.checkStockIsInGroup(this.code);
     });
   }
 
+
+  addIntoSelfSelect(code:string) {
+    let addData = {
+      code: `tse_${code}.tw`
+    }
+    this.stockService.addStockToStockGroup(addData);
+    console.log('更新成功')
+  }
 
 
 }

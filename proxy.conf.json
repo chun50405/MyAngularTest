@@ -18,5 +18,10 @@
     "target": "https://openapi.twse.com.tw",
     "secure": false,
     "changeOrigin": true
+  },
+  "/stock/*": {
+    "target": "https://localhost:5679",
+    "secure": false,
+    "changeOrigin": true
   }
 }
