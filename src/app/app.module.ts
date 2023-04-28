@@ -16,10 +16,12 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { TopBarMenuComponent } from './top-bar-menu/top-bar-menu.component';
 import { SingleStockInfoComponent } from './single-stock-info/single-stock-info.component';
 import { SelfSelectStockComponent } from './self-select-stock/self-select-stock.component';
+import { LoginComponent } from './login/login.component';
 // Component end
 
 const routes: Routes = [
-  { path: '', redirectTo: '/selfSelectStock', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent  },
   { path: 'singleStockInfo', component: SingleStockInfoComponent },
   { path: 'selfSelectStock', component: SelfSelectStockComponent }
 ];
@@ -30,7 +32,8 @@ const routes: Routes = [
     AppComponent,
     TopBarMenuComponent,
     SingleStockInfoComponent,
-    SelfSelectStockComponent
+    SelfSelectStockComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
