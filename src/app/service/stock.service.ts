@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, interval, of, forkJoin, map, catchError   } from "rxjs";
-import { concatMap  } from 'rxjs/operators';
+import { concatMap, debounceTime  } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import * as moment from 'moment';
 @Injectable({
@@ -183,5 +183,18 @@ export class StockService {
     )
 
   }
+
+
+  getStockNames(searchCode: string):Observable<string[]> {
+
+    return this.http.get<any>('/rwd/zh/api/codeQuery', {params: {query: searchCode}})
+    .pipe(
+      map(response => {
+        return response['suggestions']
+      })
+    )
+
+  }
+
 
 }

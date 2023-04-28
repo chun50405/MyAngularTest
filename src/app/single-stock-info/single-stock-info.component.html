@@ -5,7 +5,7 @@
         <div class="card-header">
           <div class="row">
             <div class="col-3">
-               <input type="text" [(ngModel)]="code" class="form-control" placeholder="輸入股票代號或是名稱">
+               <input type="text" [(ngModel)]="code" class="form-control" [typeahead]="suggestions$" [typeaheadAsync]="true" [typeaheadWaitMs]="1000" (typeaheadOnSelect)="onSelect($event)"  placeholder="輸入股票代號或是名稱">
             </div>
             <div class="col-3">
               <button class="btn btn-success" (click)="search()">查詢</button>

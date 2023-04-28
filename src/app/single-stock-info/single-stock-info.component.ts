@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { StockService } from "../service/stock.service";
 import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import { Observable, interval, of } from "rxjs";
+import { Observable, Observer, interval, of, map } from "rxjs";
+import { concatMap, switchMap, debounceTime, distinctUntilChanged  } from 'rxjs/operators';
 import { Chart, StockChart } from 'angular-highcharts';
 import * as moment from 'moment';
 import * as Highcharts from 'highcharts';
+
+
 
 import HC_exporting from 'highcharts/modules/exporting'; //呈現匯出按鈕用
 
@@ -15,11 +18,15 @@ import HC_exporting from 'highcharts/modules/exporting'; //呈現匯出按鈕�
   templateUrl: './single-stock-info.component.html',
   styleUrls: ['./single-stock-info.component.css']
 })
-export class SingleStockInfoComponent {
+export class SingleStockInfoComponent implements OnInit {
   code:string = "";
   stockCompanyInfo:any;
   chart:any;
   isInGroup:boolean = false;
+
+
+  suggestions$?: Observable<string[]>;
+
 
 
 
@@ -27,9 +34,13 @@ export class SingleStockInfoComponent {
 
     HC_exporting(Highcharts);
 
+
   }
 
+  getStockNames(searchCode: string){
+    this.stockService.getStockNames(searchCode)
 
+  }
 
 
   search() {
@@ -103,5 +114,32 @@ export class SingleStockInfoComponent {
     console.log('更新成功')
   }
 
+
+  getStockSuggestion() {
+    this.suggestions$ = new Observable((observer: Observer<string | undefined>) => {
+      observer.next(this.code);
+    }).pipe(
+      switchMap((code: string) => {
+        if (code) {
+          return this.stockService.getStockNames(code)
+          .pipe(
+            map((data: any) => data || [])
+          )
+        }
+
+        return of([]);
+      })
+    );
+  }
+
+  onSelect(event:any): void {
+    let value = event.item.split('\t')[0]
+    this.code = value
+  }
+
+  ngOnInit() {
+    this.getStockSuggestion();
+
+  }
 
 }

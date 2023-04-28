@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ChartModule } from 'angular-highcharts';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 // Module end
 
 
@@ -38,7 +39,8 @@ const routes: Routes = [
     BrowserAnimationsModule,
     FormsModule,
     ChartModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    TypeaheadModule.forRoot()
   ],
   exports: [RouterModule],
   providers: [],

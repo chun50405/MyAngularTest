@@ -4,6 +4,11 @@
     "secure": false,
     "changeOrigin": true
   },
+  "/rwd/zh/api/codeQuery": {
+    "target": "https://www.twse.com.tw",
+    "secure": false,
+    "changeOrigin": true
+  },
   "/exchangeReport/MI_5MINS_INDEX": {
     "target": "https://www.twse.com.tw",
     "secure": false,
