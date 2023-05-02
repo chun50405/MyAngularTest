@@ -1,0 +1,67 @@
+<div class="container-fluid">
+  <br><br><br><br>
+  <div class="row justify-content-center">
+    <div class="col-4">
+      <div class="card">
+        <div class="card-header">
+          <ul class="nav nav-tabs nav-fill">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#login">登入</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#register">註冊</a>
+            </li>
+          </ul>
+        </div>
+        <div class="card-body">
+          <div class="tab-content">
+            <div class="tab-pane active" id="login">
+              <form>
+                <div class="form-group">
+                  <label for="account">帳號</label>
+                  <input type="text" class="form-control" id="account" name="account" [(ngModel)]="account">
+                </div>
+                <div class="form-group">
+                  <label for="password">密碼</label>
+                  <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password">
+                </div>
+                <button type="button" class="btn btn-lg btn-primary btn-block" (click)="login(account, password)">登入</button>
+              </form>
+              <div class="hr-label">
+                  <span class="hr-label-text">或</span>
+              </div>
+              <button type="button" class="btn btn-lg btn-outline-dark btn-block">透過Google登入</button>
+              <button type="button" class="btn btn-lg btn-outline-dark btn-block">透過Facebook登入</button>
+            </div>
+            <div class="tab-pane" id="register">
+              <form>
+                <div class="form-group">
+                  <label for="account_2">帳號</label>
+                  <input type="text" class="form-control" id="account_2" name="account_2" [(ngModel)]="account">
+                </div>
+                <div class="form-group">
+                  <label for="password_2">密碼</label>
+                  <input type="password" class="form-control" id="password_2" name="password_2" [(ngModel)]="password" (ngModelChange)="checkPassword()">
+                </div>
+                <div class="form-group">
+                  <label for="confirmPassword">確認密碼</label>
+                  <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword" (ngModelChange)="checkPassword()">
+                </div>
+                <div *ngIf="passwordMismatch" class="alert alert-danger">密碼不一致</div>
+                <button type="button" class="btn btn-lg btn-primary btn-block" (click)="register(account, password, confirmPassword)">註冊</button>
+              </form>
+              <div class="hr-label">
+                  <span class="hr-label-text">或</span>
+              </div>
+              <button type="button" class="btn btn-lg btn-outline-dark btn-block">透過Google註冊</button>
+              <button type="button" class="btn btn-lg btn-outline-dark btn-block">透過Facebook註冊</button>
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

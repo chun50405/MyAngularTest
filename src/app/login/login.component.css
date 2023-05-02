@@ -1,0 +1,17 @@
+.hr-label {
+    position: relative;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    text-align: center;
+    clear: both;
+    overflow: hidden
+}
+.hr-label::before,.hr-label::after {
+    content: '';
+    position: relative;
+    width: 45%;
+    background-color: #000;
+    display: inline-block;
+    height: 1px;
+    vertical-align: middle
+}
