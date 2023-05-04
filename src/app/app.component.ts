@@ -9,6 +9,10 @@ export class AppComponent {
   title = 'MyAngularTest';
   hideTopBar: boolean = false;
 
+
+
+
+
   constructor(private router: Router) {
     router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -22,4 +26,6 @@ export class AppComponent {
       }
     });
   }
+
+
 }

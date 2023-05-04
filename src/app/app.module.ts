@@ -9,6 +9,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ChartModule } from 'angular-highcharts';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { AlertModule } from 'ngx-bootstrap/alert';
+import { ModalModule } from 'ngx-bootstrap/modal';
 // Module end
 // Interceptor start
 import { AuthInterceptor } from './interceptors/auth.interceptor';
@@ -18,6 +20,8 @@ import { TopBarMenuComponent } from './top-bar-menu/top-bar-menu.component';
 import { SingleStockInfoComponent } from './single-stock-info/single-stock-info.component';
 import { SelfSelectStockComponent } from './self-select-stock/self-select-stock.component';
 import { LoginComponent } from './login/login.component';
+
+import { AlertModalComponent } from './modals/alerts/alert-modal.component';
 // Component end
 
 const routes: Routes = [
@@ -34,7 +38,8 @@ const routes: Routes = [
     TopBarMenuComponent,
     SingleStockInfoComponent,
     SelfSelectStockComponent,
-    LoginComponent
+    LoginComponent,
+    AlertModalComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +49,9 @@ const routes: Routes = [
     FormsModule,
     ChartModule,
     RouterModule.forRoot(routes),
-    TypeaheadModule.forRoot()
+    TypeaheadModule.forRoot(),
+    AlertModule.forRoot(),
+    ModalModule.forRoot()
   ],
   exports: [RouterModule],
   providers: [
