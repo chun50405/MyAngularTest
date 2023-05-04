@@ -15,7 +15,7 @@ export class LoginComponent {
   password_2!: string;
   confirmPassword!: string;
   passwordMismatch: boolean = false;
-
+  isLoginFail: boolean = false;
 
   constructor(private router: Router, private http: HttpClient) {}
 
@@ -31,16 +31,21 @@ export class LoginComponent {
 
     this.http.post('/user/login', loginData)
     .pipe(
-      map(response => {
-        console.log('response=>', response);
+      map((response:any) => {
+        return response.theToken
       })
     )
     .subscribe(
-      () => {
-        console.log('Login success!');
+      (token) => {
+        console.log('Login success!', token);
+        // 將 Token 儲存在 LocalStorage 中
+        localStorage.setItem('token', token);
         this.router.navigate(['/singleStockInfo']);
       },
-      error => console.log('error =>', error)
+      error => {
+        console.log('error =>', error)
+        this.isLoginFail = true
+      }
     )
 
   }

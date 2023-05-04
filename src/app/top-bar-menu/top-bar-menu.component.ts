@@ -12,6 +12,7 @@ export class TopBarMenuComponent {
 
   logout() {
     // 導航到目標頁面
+    localStorage.removeItem('token');
     this.router.navigate(['/login']);
   }
 }

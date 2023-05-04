@@ -3,15 +3,16 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ChartModule } from 'angular-highcharts';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 // Module end
-
-
+// Interceptor start
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+// Interceptor end
 // Component start
 import { TopBarMenuComponent } from './top-bar-menu/top-bar-menu.component';
 import { SingleStockInfoComponent } from './single-stock-info/single-stock-info.component';
@@ -46,7 +47,13 @@ const routes: Routes = [
     TypeaheadModule.forRoot()
   ],
   exports: [RouterModule],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -139,6 +139,13 @@ export class SingleStockInfoComponent implements OnInit {
 
   ngOnInit() {
     this.getStockSuggestion();
+    interval(1000)
+    .pipe(
+      switchMap(() => this.http.get('/stock/test'))
+    )
+    .subscribe((data) => {
+      console.log('data=', data)
+    })
 
   }
 
