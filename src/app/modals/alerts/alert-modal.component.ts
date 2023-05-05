@@ -4,9 +4,11 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 @Component({
   selector: 'app-alert-modal',
   template: `
-  <alert type="danger" [dismissible]="true" (onClose)="onClose()">
+  <div class="modal-body text-center alert-{{type}}">
     {{content}}
-  </alert>
+  </div>
+
+
 
 
   `
@@ -14,6 +16,7 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 export class AlertModalComponent {
   title!: string;
   content!: string;
+  type!: string;
   constructor(public modalRef: BsModalRef) {}
 
   onClose() {

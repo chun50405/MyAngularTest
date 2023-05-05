@@ -39,7 +39,7 @@ const routes: Routes = [
     SingleStockInfoComponent,
     SelfSelectStockComponent,
     LoginComponent,
-    AlertModalComponent
+    AlertModalComponent,
   ],
   imports: [
     BrowserModule,

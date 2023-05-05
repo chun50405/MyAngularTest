@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from "../service/auth.service";
 @Component({
   selector: 'app-top-bar-menu',
   templateUrl: './top-bar-menu.component.html',
@@ -8,11 +9,9 @@ import { Router } from '@angular/router';
 export class TopBarMenuComponent {
 
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   logout() {
-    // 導航到目標頁面
-    localStorage.removeItem('token');
-    this.router.navigate(['/login']);
+    this.authService.logout();
   }
 }

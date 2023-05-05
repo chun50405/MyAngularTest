@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { AuthService } from "../service/auth.service";
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,34 +19,27 @@ export class LoginComponent {
   passwordMismatch: boolean = false;
   isLoginFail: boolean = false;
 
-  constructor(private router: Router, private http: HttpClient) {}
+  defaultPage:string = 'singleStockInfo'
+
+  constructor(private router: Router, private authService: AuthService) {}
 
 
 
 
   login(account:string, password:string) {
 
-    let loginData = {
-      account: account,
-      password: password
-    }
-
-    this.http.post('/user/login', loginData)
-    .pipe(
-      map((response:any) => {
-        return response.theToken
-      })
-    )
+    return this.authService.login(account, password)
     .subscribe(
       (token) => {
         console.log('Login success!', token);
         // 將 Token 儲存在 LocalStorage 中
         localStorage.setItem('token', token);
-        this.router.navigate(['/singleStockInfo']);
+
+        this.router.navigate([`/${this.defaultPage}`]);
       },
-      error => {
-        console.log('error =>', error)
+      (error) => {
         this.isLoginFail = true
+        console.log('error =>', error)
       }
     )
 
