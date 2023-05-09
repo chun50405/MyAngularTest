@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import { Validators, FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -13,9 +14,29 @@ import { AuthService } from "../service/auth.service";
 export class LoginComponent {
   account!: string;
   password!: string;
-  account_2!: string;
-  password_2!: string;
-  confirmPassword!: string;
+  registerForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    account_2: new FormControl('', [Validators.required]),
+    password_2: new FormControl('', [Validators.required]),
+    confirmPassword: new FormControl('',[Validators.required])
+  })
+
+  get email() {
+    return this.registerForm.get('email');
+  }
+
+  get account_2() {
+    return this.registerForm.get('account_2');
+  }
+
+  get password_2() {
+    return this.registerForm.get('password_2');
+  }
+
+  get confirmPassword() {
+    return this.registerForm.get('confirmPassword');
+  }
+
   passwordMismatch: boolean = false;
   isLoginFail: boolean = false;
 
@@ -47,14 +68,21 @@ export class LoginComponent {
 
 
   checkPassword() {
-    if (this.password !== this.confirmPassword) {
+    const formValue = this.registerForm.value;
+    if(formValue.password_2 !== formValue.confirmPassword) {
       this.passwordMismatch = true;
     } else {
       this.passwordMismatch = false;
     }
   }
 
-  register(account: string, password:string, confirmPassword: string) {
+  register() {
+
+    if(this.registerForm.valid) {
+      const formValue = this.registerForm.value;
+      console.log(formValue);
+      
+    }
 
   }
 

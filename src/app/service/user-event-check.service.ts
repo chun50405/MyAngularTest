@@ -8,13 +8,14 @@ import { AuthService } from "./auth.service";
 export class UserEventCheckService {
   private clickSubscription: Subscription | undefined;
   private keydownSubscription: Subscription | undefined;
+  throttleTime: number = 10 * 60 * 1000;
   constructor(private authService: AuthService) { }
 
 
 
   startUserEventCheck() {
     this.clickSubscription = fromEvent(document, 'click').pipe(
-      throttleTime(5000) // 限制事件觸發頻率
+      throttleTime(this.throttleTime) // 限制事件觸發頻率
     )
     .subscribe(
       () => {
@@ -29,7 +30,7 @@ export class UserEventCheckService {
 
 
     this.keydownSubscription = fromEvent(document, 'keydown').pipe(
-      throttleTime(5000) // 限制事件觸發頻率
+      throttleTime(this.throttleTime) // 限制事件觸發頻率
     )
     .subscribe(
      () => {

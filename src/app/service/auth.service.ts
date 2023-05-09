@@ -27,6 +27,15 @@ export class AuthService {
     )
   }
 
+  register(formData:any) {
+    let registerData = {
+      account: formData.account_2,
+      password: formData.password_2,
+      email: formData.email
+    }
+    return this.http.post('/user/register', registerData)
+  }
+
   logout() {
     // 導航到目標頁面
     localStorage.removeItem('token');
@@ -42,4 +51,7 @@ export class AuthService {
         })
       )
   }
+
+
+
 }

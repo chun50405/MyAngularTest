@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Routes, RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChartModule } from 'angular-highcharts';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { AlertModule } from 'ngx-bootstrap/alert';
@@ -47,6 +47,7 @@ const routes: Routes = [
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     ChartModule,
     RouterModule.forRoot(routes),
     TypeaheadModule.forRoot(),
