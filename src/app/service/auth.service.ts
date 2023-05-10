@@ -33,6 +33,7 @@ export class AuthService {
       password: formData.password_2,
       email: formData.email
     }
+    console.log('registerData=', registerData)
     return this.http.post('/user/register', registerData)
   }
 

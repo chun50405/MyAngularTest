@@ -80,8 +80,18 @@ export class LoginComponent {
 
     if(this.registerForm.valid) {
       const formValue = this.registerForm.value;
-      console.log(formValue);
-      
+
+      return this.authService.register(formValue)
+      .subscribe((response) => {
+        console.log('response=', response)
+
+      },(error) => {
+        console.log('error=>', error)
+      })
+
+    } else {
+      console.log('registerForm is invalid')
+      return
     }
 
   }
