@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { AlertModule } from 'ngx-bootstrap/alert';
 @Component({
@@ -13,7 +13,7 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 
   `
 })
-export class AlertModalComponent {
+export class AlertModalComponent implements OnInit {
   title!: string;
   content!: string;
   type!: string;
@@ -21,5 +21,11 @@ export class AlertModalComponent {
 
   onClose() {
       this.modalRef.hide();
+  }
+
+  ngOnInit() {
+    setTimeout(() => {
+      this.modalRef.hide();
+    }, 5000);
   }
 }

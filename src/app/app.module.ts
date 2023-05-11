@@ -22,6 +22,7 @@ import { SelfSelectStockComponent } from './self-select-stock/self-select-stock.
 import { LoginComponent } from './login/login.component';
 
 import { AlertModalComponent } from './modals/alerts/alert-modal.component';
+import { LoadingModalComponent } from './modals/alerts/loading-modal.component';
 // Component end
 
 const routes: Routes = [
@@ -40,6 +41,7 @@ const routes: Routes = [
     SelfSelectStockComponent,
     LoginComponent,
     AlertModalComponent,
+    LoadingModalComponent
   ],
   imports: [
     BrowserModule,

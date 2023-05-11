@@ -54,7 +54,6 @@ export class AuthInterceptor implements HttpInterceptor {
     const modalRef: BsModalRef = this.modalService.show(AlertModalComponent, {
       class: 'modal-dialog-centered'
     });
-    modalRef.content.title = "Token過期"
     modalRef.content.content = "您的登入已逾時，請重新登入。"
     modalRef.content.type = "danger"
   }
