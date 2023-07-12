@@ -6,10 +6,10 @@
         <div class="card-header">
           <ul class="nav nav-tabs nav-fill">
             <li class="nav-item">
-              <a class="nav-link" [class.active]="activeTab === 'login'" data-toggle="tab" href="#login" (click)="switchTab('login')">登入</a>
+              <a class="nav-link" [class.active]="activeTab === 'login'" data-bs-toggle="tab" data-bs-target="#login" (click)="switchTab('login')">登入</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" [class.active]="activeTab === 'register'"  data-toggle="tab" href="#register" (click)="switchTab('register')">註冊</a>
+              <a class="nav-link" [class.active]="activeTab === 'register'"  data-bs-toggle="tab" data-bs-target="#register" (click)="switchTab('register')">註冊</a>
             </li>
           </ul>
         </div>
@@ -17,52 +17,60 @@
           <div class="tab-content">
             <div class="tab-pane" [class.active]="activeTab === 'login'" id="login">
               <form>
-                <div class="form-group">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="account" name="account" [(ngModel)]="account" placeholder="Account">
                   <label for="account">帳號</label>
-                  <input type="text" class="form-control" id="account" name="account" [(ngModel)]="account">
                 </div>
-                <div class="form-group">
+                <div class="form-floating mb-3 ">
+                  <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password" placeholder="Password">
                   <label for="password">密碼</label>
-                  <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password">
                 </div>
                 <div *ngIf="isLoginFail" class="alert alert-danger">{{loginFailMessage}}</div>
-                <button type="button" class="btn btn-lg btn-primary btn-block" (click)="login(account, password)">登入</button>
+                <div class="d-grid">
+                  <button type="button" class="btn btn-lg btn-primary" (click)="login(account, password)">登入</button>
+                </div>
               </form>
               <div class="hr-label">
                   <span class="hr-label-text">或</span>
               </div>
-              <button type="button" class="btn btn-lg btn-outline-dark btn-block">透過Google登入</button>
-              <button type="button" class="btn btn-lg btn-outline-dark btn-block">透過Facebook登入</button>
+              <div class="d-grid gap-2">
+                <button type="button" class="btn btn-lg btn-outline-dark ">透過Google登入</button>
+                <button type="button" class="btn btn-lg btn-outline-dark ">透過Facebook登入</button>
+              </div>
+
             </div>
             <div class="tab-pane" [class.active]="activeTab === 'register'" id="register">
               <form [formGroup]="registerForm">
-                <div class="form-group">
-                  <label for="email">電子郵件</label>
+                <div class="form-floating mb-3">
                   <input type="email" class="form-control" [ngClass]="{'is-valid': email?.valid, 'is-invalid': email?.invalid && email?.dirty}" id="email" name="email" formControlName="email" placeholder="name@example.com" required email>
+                  <label for="email">電子郵件</label>
                   <div class="invalid-feedback">不合法的電子郵件</div>
                 </div>
-                <div class="form-group">
-                  <label for="account_2">帳號</label>
+                <div class="form-floating mb-3">
                   <input type="text" class="form-control" [ngClass]="{'is-valid': account_2?.valid, 'is-invalid': account_2?.invalid && account_2?.dirty}" id="account_2" name="account_2" formControlName="account_2" required>
+                  <label for="account_2">帳號</label>
                 </div>
-                <div class="form-group">
-                  <label for="password_2">密碼</label>
+                <div class="form-floating mb-3">
                   <input type="password" class="form-control" [ngClass]="{'is-valid': password_2?.valid , 'is-invalid': password_2?.invalid && password_2?.dirty }" id="password_2" name="password_2" formControlName="password_2" (ngModelChange)="checkPassword()" required>
+                  <label for="password_2">密碼</label>
                   <div class="invalid-feedback">密碼程度至少8碼，包含大小寫字母與數字</div>
                 </div>
-                <div class="form-group">
-                  <label for="confirmPassword">確認密碼</label>
+                <div class="form-floating mb-3">
                   <input type="password" class="form-control" [ngClass]="{'is-invalid': passwordMismatch}" id="confirmPassword" name="confirmPassword" formControlName="confirmPassword" (ngModelChange)="checkPassword()" required>
+                  <label for="confirmPassword">確認密碼</label>
                   <div class="invalid-feedback">密碼不一致</div>
                 </div>
-
-                <button type="button" class="btn btn-lg btn-primary btn-block" (click)="register()" [disabled]="false">註冊</button>
+                <div class="d-grid ">
+                  <button type="button" class="btn btn-lg btn-primary" (click)="register()" [disabled]="false">註冊</button>
+                </div>
               </form>
               <div class="hr-label">
                   <span class="hr-label-text">或</span>
               </div>
-              <button type="button" class="btn btn-lg btn-outline-dark btn-block">透過Google註冊</button>
-              <button type="button" class="btn btn-lg btn-outline-dark btn-block">透過Facebook註冊</button>
+              <div class="d-grid gap-2">
+                <button type="button" class="btn btn-lg btn-outline-dark ">透過Google登入</button>
+                <button type="button" class="btn btn-lg btn-outline-dark ">透過Facebook登入</button>
+              </div>
             </div>
           </div>
 
