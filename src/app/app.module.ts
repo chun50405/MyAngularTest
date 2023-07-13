@@ -11,6 +11,8 @@ import { ChartModule } from 'angular-highcharts';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 // Module end
 // Interceptor start
 import { AuthInterceptor } from './interceptors/auth.interceptor';
@@ -23,13 +25,15 @@ import { LoginComponent } from './login/login.component';
 
 import { AlertModalComponent } from './modals/alerts/alert-modal.component';
 import { LoadingModalComponent } from './modals/alerts/loading-modal.component';
+import { RiskAssessmentComponent } from './risk-assessment/risk-assessment.component';
 // Component end
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent  },
   { path: 'singleStockInfo', component: SingleStockInfoComponent },
-  { path: 'selfSelectStock', component: SelfSelectStockComponent }
+  { path: 'selfSelectStock', component: SelfSelectStockComponent },
+  { path: 'riskAssessment', component: RiskAssessmentComponent}
 ];
 
 
@@ -41,7 +45,8 @@ const routes: Routes = [
     SelfSelectStockComponent,
     LoginComponent,
     AlertModalComponent,
-    LoadingModalComponent
+    LoadingModalComponent,
+    RiskAssessmentComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +55,8 @@ const routes: Routes = [
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
+    FormlyModule.forRoot(),
+    FormlyBootstrapModule,
     ChartModule,
     RouterModule.forRoot(routes),
     TypeaheadModule.forRoot(),

@@ -6,7 +6,7 @@ import { AlertModule } from 'ngx-bootstrap/alert';
   template: `
   <div class="modal-body text-center alert-dark">
     <div class="spinner-border text-primary" role="status">
-        <span class="sr-only">Loading...</span>
+        <span class="sr-only"></span>
       </div>
       <p>Loading...</p>
   </div>

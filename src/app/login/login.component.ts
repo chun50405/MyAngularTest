@@ -96,16 +96,17 @@ export class LoginComponent {
   }
 
   register() {
-    this.showLoadingModal();
     if(this.registerForm.valid) {
+      this.showLoadingModal();
       const formValue = this.registerForm.value;
       return this.authService.register(formValue)
       .subscribe((response) => {
         console.log('response=', response)
-        this.loadingModalRef?.hide();
+        this.hideLoadingModal();
         this.showSuccessModal();
         this.switchTab('login');
       },(error) => {
+        this.hideLoadingModal();
         console.log('error=>', error)
       })
 
@@ -130,5 +131,8 @@ export class LoginComponent {
     });
   }
 
+  hideLoadingModal() {
+    this.loadingModalRef?.hide()
+  }
 
 }

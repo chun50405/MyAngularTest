@@ -27,7 +27,7 @@
                 </div>
                 <div *ngIf="isLoginFail" class="alert alert-danger">{{loginFailMessage}}</div>
                 <div class="d-grid">
-                  <button type="button" class="btn btn-lg btn-primary" (click)="login(account, password)">登入</button>
+                  <button type="button" class="btn btn-lg btn-primary" (click)="login(account, password)" [disabled]="!account || !password">登入</button>
                 </div>
               </form>
               <div class="hr-label">
@@ -47,16 +47,16 @@
                   <div class="invalid-feedback">不合法的電子郵件</div>
                 </div>
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" [ngClass]="{'is-valid': account_2?.valid, 'is-invalid': account_2?.invalid && account_2?.dirty}" id="account_2" name="account_2" formControlName="account_2" required>
+                  <input type="text" class="form-control" [ngClass]="{'is-valid': account_2?.valid, 'is-invalid': account_2?.invalid && account_2?.dirty}" id="account_2" name="account_2" formControlName="account_2" placeholder="account" required>
                   <label for="account_2">帳號</label>
                 </div>
                 <div class="form-floating mb-3">
-                  <input type="password" class="form-control" [ngClass]="{'is-valid': password_2?.valid , 'is-invalid': password_2?.invalid && password_2?.dirty }" id="password_2" name="password_2" formControlName="password_2" (ngModelChange)="checkPassword()" required>
+                  <input type="password" class="form-control" [ngClass]="{'is-valid': password_2?.valid , 'is-invalid': password_2?.invalid && password_2?.dirty }" id="password_2" name="password_2" formControlName="password_2" placeholder="password" (ngModelChange)="checkPassword()" required>
                   <label for="password_2">密碼</label>
                   <div class="invalid-feedback">密碼程度至少8碼，包含大小寫字母與數字</div>
                 </div>
                 <div class="form-floating mb-3">
-                  <input type="password" class="form-control" [ngClass]="{'is-invalid': passwordMismatch}" id="confirmPassword" name="confirmPassword" formControlName="confirmPassword" (ngModelChange)="checkPassword()" required>
+                  <input type="password" class="form-control" [ngClass]="{'is-invalid': passwordMismatch}" id="confirmPassword" name="confirmPassword" formControlName="confirmPassword" (ngModelChange)="checkPassword()" placeholder="confirmPassword" required>
                   <label for="confirmPassword">確認密碼</label>
                   <div class="invalid-feedback">密碼不一致</div>
                 </div>

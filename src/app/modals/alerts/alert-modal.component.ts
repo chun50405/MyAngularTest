@@ -4,7 +4,7 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 @Component({
   selector: 'app-alert-modal',
   template: `
-  <div class="modal-body text-center alert-{{type}}">
+  <div class="modal-body text-center alert alert-{{type}}">
     {{content}}
   </div>
 
