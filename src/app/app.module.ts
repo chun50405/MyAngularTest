@@ -27,6 +27,9 @@ import { AlertModalComponent } from './modals/alerts/alert-modal.component';
 import { LoadingModalComponent } from './modals/alerts/loading-modal.component';
 import { RiskAssessmentComponent } from './risk-assessment/risk-assessment.component';
 // Component end
+// Formly Component start
+import { PanelWrapperComponent } from './formly/panel-wrapper.component';
+// Formly Component end
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -46,7 +49,8 @@ const routes: Routes = [
     LoginComponent,
     AlertModalComponent,
     LoadingModalComponent,
-    RiskAssessmentComponent
+    RiskAssessmentComponent,
+    PanelWrapperComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +59,9 @@ const routes: Routes = [
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    FormlyModule.forRoot(),
+    FormlyModule.forRoot({
+      wrappers: [{ name: 'panel', component: PanelWrapperComponent }],
+    }),
     FormlyBootstrapModule,
     ChartModule,
     RouterModule.forRoot(routes),
