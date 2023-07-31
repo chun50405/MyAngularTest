@@ -27,6 +27,15 @@ export class AuthService {
     )
   }
 
+  loginByGoogle(googleInfo:any) {
+    return this.http.post('/user/loginByGoogle', googleInfo)
+    .pipe(
+      map((response:any) => {
+        return response.theToken
+      })
+    )
+  }
+
   register(formData:any) {
     let registerData = {
       account: formData.account_2,

@@ -13,6 +13,12 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
+import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import {
+  GoogleLoginProvider,
+  FacebookLoginProvider
+} from '@abacritt/angularx-social-login';
+import {  GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 // Module end
 // Interceptor start
 import { AuthInterceptor } from './interceptors/auth.interceptor';
@@ -30,6 +36,9 @@ import { RiskAssessmentComponent } from './risk-assessment/risk-assessment.compo
 // Formly Component start
 import { PanelWrapperComponent } from './formly/panel-wrapper.component';
 // Formly Component end
+
+
+import { environment } from '../environments/environment';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -63,6 +72,8 @@ const routes: Routes = [
       wrappers: [{ name: 'panel', component: PanelWrapperComponent }],
     }),
     FormlyBootstrapModule,
+    SocialLoginModule,
+    GoogleSigninButtonModule,
     ChartModule,
     RouterModule.forRoot(routes),
     TypeaheadModule.forRoot(),
@@ -75,6 +86,27 @@ const routes: Routes = [
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
+    },
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              environment.googleLoginClientId
+            )
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('clientId')
+          }
+        ],
+        onError: (err) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig,
     }
   ],
   bootstrap: [AppComponent]
