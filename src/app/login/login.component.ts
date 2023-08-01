@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   loadingModalRef?: BsModalRef;
   onDestroy$ = new Subject<void>();
+  socialUser?: SocialUser;
 
   registerForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -154,6 +155,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     .pipe(take(1))
     .subscribe((user) => {
         console.log("socialAuthService user=", user)
+        this.socialUser = user
         if(user) {
           return this.authService.loginByGoogle(user)
           .pipe(takeUntil(this.onDestroy$))
@@ -183,7 +185,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() { //when login page is being destroyed (moving to other page), signOut from google
-  	this.socialAuthService.signOut();
+    if(this.socialUser) {
+      this.socialAuthService.signOut();
+    }
     //取消所有訂閱
     this.onDestroy$.next();
     this.onDestroy$.complete();
