@@ -196,5 +196,17 @@ export class StockService {
 
   }
 
+  getStockNews():Observable<string[]> {
 
+    return this.http.get<any>('/stock/news')
+  }
+
+  getStockNewsContent(url:string):Observable<any> {
+    return this.http.get<any>('/stock/newsContent', {params: {url: url}})
+    .pipe(
+      map(response => {
+        return response['content']
+      })
+    )
+  }
 }

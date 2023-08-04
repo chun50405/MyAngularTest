@@ -1,4 +1,4 @@
-// Module start
+// Module Start
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -19,11 +19,11 @@ import {
   FacebookLoginProvider
 } from '@abacritt/angularx-social-login';
 import {  GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
-// Module end
-// Interceptor start
+// Module End
+// Interceptor Start
 import { AuthInterceptor } from './interceptors/auth.interceptor';
-// Interceptor end
-// Component start
+// Interceptor End
+// Component Start
 import { TopBarMenuComponent } from './top-bar-menu/top-bar-menu.component';
 import { SingleStockInfoComponent } from './single-stock-info/single-stock-info.component';
 import { SelfSelectStockComponent } from './self-select-stock/self-select-stock.component';
@@ -32,25 +32,30 @@ import { LoginComponent } from './login/login.component';
 import { AlertModalComponent } from './modals/alerts/alert-modal.component';
 import { LoadingModalComponent } from './modals/alerts/loading-modal.component';
 import { RiskAssessmentComponent } from './risk-assessment/risk-assessment.component';
-// Component end
-// Formly Component start
+import { NewsComponent, NewsModalComponent } from './news/news.component';
+// Component End
+// Formly Component Start
 import { PanelWrapperComponent } from './formly/panel-wrapper.component';
-// Formly Component end
-
-
+// Formly Component End
 import { environment } from '../environments/environment';
+//Pipe Start
+import { ParagraphPipe } from './pipe/paragraph.pipe';
+//Pipe End
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent  },
   { path: 'singleStockInfo', component: SingleStockInfoComponent },
   { path: 'selfSelectStock', component: SelfSelectStockComponent },
-  { path: 'riskAssessment', component: RiskAssessmentComponent}
+  { path: 'riskAssessment', component: RiskAssessmentComponent},
+  { path: 'news', component: NewsComponent}
 ];
 
 
 @NgModule({
   declarations: [
+    //Component
     AppComponent,
     TopBarMenuComponent,
     SingleStockInfoComponent,
@@ -59,7 +64,10 @@ const routes: Routes = [
     AlertModalComponent,
     LoadingModalComponent,
     RiskAssessmentComponent,
-    PanelWrapperComponent
+    PanelWrapperComponent,
+    NewsComponent,
+    NewsModalComponent,
+    ParagraphPipe,
   ],
   imports: [
     BrowserModule,

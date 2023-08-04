@@ -11,9 +11,10 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 ## 注意事項
 
  1.股票資訊來源 https://mis.twse.com.tw & https://www.twse.com.tw (proxy.conf.json)
- 2.圖表使用angular-highchart
- 3.自選報價群組資料來源(取得/修改) test_nodeServer
- 4.因為有實作soical-login(目前僅google),故請去修改 environment.ts 的 googleLoginClientId變數為你自己的
+ 2.股市新聞來源 https://news.cnyes.com (鉅亨)
+ 3.圖表使用angular-highchart
+ 4.自選報價群組資料來源(取得/修改) test_nodeServer
+ 5.因為有實作soical-login(目前僅google),故請去修改 environment.ts 的 googleLoginClientId變數為你自己的
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.

@@ -1,0 +1,18 @@
+<div class="container">
+    <h1>即時頭條</h1>
+    <div class="row">
+      <div class="col-3" *ngFor="let row of news">
+        <div class="card">
+          <img src="{{row.image}}" class="card-img-top" alt="News Image">
+          <div class="card-body">
+            <h5 class="card-title">{{row.title}}</h5>
+            <p class="card-text">{{row.subTitle}}</p>
+            <button type="button" class="btn btn-primary" (click)="openNewsModal(row)">閱讀更多</button>
+          </div>
+          <div class="card-footer">
+            <small class="text-body-secondary">{{row.time}}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
