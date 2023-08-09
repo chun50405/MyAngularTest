@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import jwt_decode from "jwt-decode";
 @Injectable({
   providedIn: 'root'
 })
@@ -62,6 +63,14 @@ export class AuthService {
       )
   }
 
-
+  getTokenPayload() {
+    let theToken = localStorage.getItem('token');
+    if(theToken) {
+      let tokenPayload = jwt_decode(theToken);
+      return tokenPayload
+    }
+    return null
+    
+  }
 
 }

@@ -1,25 +1,35 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item">
-        <div class="btn-group">
-          <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true">
             選單
-          </button>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" routerLink="/selfSelectStock">自選報價</a>
-            <a class="dropdown-item" routerLink="/singleStockInfo">個股查詢</a>
-            <a class="dropdown-item" routerLink="/news">國際金融新聞</a>
-            <a class="dropdown-item" routerLink="/riskAssessment">我的投資風險評估</a>
-            <a class="dropdown-item text-danger" (click)="logout()"><i class="bi bi-box-arrow-right"></i>登出</a>
-          </div>
-        </div>
-      </li>
-    </ul>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" routerLink="/selfSelectStock">自選報價</a></li>
+            <li><a class="dropdown-item" routerLink="/singleStockInfo">個股查詢</a></li>
+            <li><a class="dropdown-item" routerLink="/news">國際金融新聞</a></li>
+            <li><a class="dropdown-item" routerLink="/riskAssessment">我的投資風險評估</a></li>
+            <li><a class="dropdown-item text-danger" (click)="logout()"><i class="bi bi-box-arrow-right"></i>登出</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div>
+        <button type="button" class="btn btn-outline-secondary">
+          <i class="bi bi-person-circle"></i>
+          {{account}}
+        </button>
+        
+      </div>
+    </div>
   </div>
+  
 </nav>
+
