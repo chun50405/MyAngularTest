@@ -25,6 +25,9 @@
                   <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password" placeholder="Password">
                   <label for="password">密碼</label>
                 </div>
+                <div *ngIf="isLoginFail && isReSendVerifiedMail"  class="d-grid">
+                  <button type="button" class="btn btn-lg btn-warning" (click)="reSendVerifiedMail()">重新寄送認證信件</button>
+                </div>
                 <div *ngIf="isLoginFail" class="alert alert-danger">{{loginFailMessage}}</div>
                 <div class="d-grid">
                   <button type="button" class="btn btn-lg btn-primary" (click)="login(account, password)" [disabled]="!account || !password">登入</button>

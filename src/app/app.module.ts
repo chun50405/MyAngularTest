@@ -15,8 +15,7 @@ import { FormlyModule } from '@ngx-formly/core';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import {
-  GoogleLoginProvider,
-  FacebookLoginProvider
+  GoogleLoginProvider 
 } from '@abacritt/angularx-social-login';
 import {  GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 // Module End
@@ -105,10 +104,6 @@ const routes: Routes = [
             provider: new GoogleLoginProvider(
               environment.googleLoginClientId
             )
-          },
-          {
-            id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('clientId')
           }
         ],
         onError: (err) => {

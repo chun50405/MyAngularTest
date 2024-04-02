@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, pipe } from 'rxjs';
 import { map } from 'rxjs/operators';
 import jwt_decode from "jwt-decode";
 @Injectable({
@@ -45,6 +45,16 @@ export class AuthService {
     }
     console.log('registerData=', registerData)
     return this.http.post('/user/register', registerData)
+  }
+
+  reSendVerifiedMail(token:string, account:string, email:string) {
+    return this.http.post('/user/reSendVerifyMail', {token: token, account: account, email: email})
+    .pipe(
+      map((response:any) => {
+        return response
+      })
+    )
+
   }
 
   logout() {

@@ -6,7 +6,7 @@ import { Observable, Subscription, Subject } from 'rxjs';
 import { map, takeUntil, take } from 'rxjs/operators';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { SocialAuthService, SocialUser } from "@abacritt/angularx-social-login";
-import { GoogleLoginProvider, FacebookLoginProvider } from "@abacritt/angularx-social-login";
+import { GoogleLoginProvider } from "@abacritt/angularx-social-login";
 
 import { AuthService } from "../service/auth.service";
 import { AlertModalComponent } from "../modals/alerts/alert-modal.component";
@@ -21,6 +21,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   password!: string;
   activeTab: string = 'login';
   loading: boolean = false;
+  isReSendVerifiedMail: boolean = false
+  currentUserMail!: string
+  currentUserToken!: string
 
   loadingModalRef?: BsModalRef;
   onDestroy$ = new Subject<void>();
@@ -85,17 +88,17 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.isLoginFail = true
         if(error.error.message) {
           this.loginFailMessage = error.error.message
+          if(!error.error.isVerified) {
+            this.isReSendVerifiedMail = true
+            this.currentUserMail = error.error.email
+            this.currentUserToken = error.error.token
+          }
         }
 
 
       }
     )
 
-  }
-
-
-  signInWithFB(): void {
-    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
   checkPassword() {
@@ -116,7 +119,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe((response) => {
         console.log('response=', response)
         this.hideLoadingModal();
-        this.showSuccessModal();
+        this.showSuccessModal('註冊成功並且已發送認證信件至您的信箱，認證完後即可登入');
         this.switchTab('login');
       },(error) => {
         this.hideLoadingModal();
@@ -130,11 +133,24 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   }
 
-  showSuccessModal() {
+  reSendVerifiedMail() {
+    return this.authService.reSendVerifiedMail(this.currentUserToken, this.account, this.currentUserMail)
+    .pipe(takeUntil(this.onDestroy$))
+    .subscribe((response) => {
+      console.log('response=>', response)
+      this.isReSendVerifiedMail = false
+      this.showSuccessModal("重新發送認證信件至您的信箱，認證完後即可登入")
+    }, (error) => {
+      console.log('error=>', error)
+    })
+
+  }
+
+  showSuccessModal(content:string) {
     const modalRef: BsModalRef = this.modalService.show(AlertModalComponent, {
       class: 'modal-dialog-centered'
     });
-    modalRef.content.content = "註冊成功並且已發送認證信件至您的信箱，認證完後即可登入"
+    modalRef.content.content = content
     modalRef.content.type = "success"
   }
 
