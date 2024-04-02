@@ -15,9 +15,14 @@ export class NewsComponent implements OnInit {
 
   getStockNews() {
     return this.stockService.getStockNews()
-    .subscribe((response) => {
-      this.news = response
-    })
+      .subscribe({
+        next: (response) => {
+          this.news = response;
+        },
+        error: (error) => {
+          console.log('error=>', error)
+        }
+      });
   }
 
   openNewsModal(data:any) {
@@ -63,8 +68,10 @@ export class NewsModalComponent implements OnInit {
 
   getNewsContent() {
     this.stockService.getStockNewsContent(this.data.url)
-    .subscribe((theNewsContent) => {
-       this.data.content = theNewsContent
+    .subscribe({
+      next: (theNewsContent) => {
+        this.data.content = theNewsContent
+      }
     })
   }
 

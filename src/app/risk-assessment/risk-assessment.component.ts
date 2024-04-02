@@ -17,8 +17,13 @@ export class RiskAssessmentComponent {
 
   constructor(private formlyService: FormlyService) {
   this.formlyService.getRiskQuestion()
-    .subscribe(data => {
-      this.fields = data
+    .subscribe({
+      next: (data) => {
+        this.fields = data
+      },
+      error: (error) => {
+        console.log('error=>', error)
+      }
     })
   }
 

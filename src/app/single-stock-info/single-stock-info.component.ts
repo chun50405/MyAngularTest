@@ -98,7 +98,8 @@ export class SingleStockInfoComponent implements OnInit {
 
    });
 
-    this.stockService.getStockCompanyInfo(this.code).subscribe(async data => {
+    this.stockService.getStockCompanyInfo(this.code)
+    .subscribe(async data => {
       console.log('getStockCompanyInfo data=>', data)
       this.stockCompanyInfo = data;
       this.isInGroup = await this.stockService.checkStockIsInGroup(this.code);

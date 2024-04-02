@@ -17,31 +17,35 @@ export class UserEventCheckService {
     this.clickSubscription = fromEvent(document, 'click').pipe(
       throttleTime(this.throttleTime) // 限制事件觸發頻率
     )
-    .subscribe(
-      () => {
+    .subscribe({
+      next: () => {
         // console.log('clickSubscription')
         this.authService.refreshToken()
-        .subscribe(token => {
-          localStorage.setItem('token', token);
-          console.log('更新token 成功', token)
+        .subscribe({
+          next: (token) => {
+            localStorage.setItem('token', token);
+            console.log('更新token 成功', token)
+          }
         })
       }
-    )
+    })
 
 
     this.keydownSubscription = fromEvent(document, 'keydown').pipe(
       throttleTime(this.throttleTime) // 限制事件觸發頻率
     )
-    .subscribe(
-     () => {
-       // console.log('keydownSubscription')
-       this.authService.refreshToken()
-       .subscribe(token => {
-         localStorage.setItem('token', token);
-         console.log('更新token 成功', token);
-       })
-     }
-    )
+    .subscribe({
+      next: () => {
+         // console.log('keydownSubscription')
+        this.authService.refreshToken()
+        .subscribe({
+          next: (token) => {
+            localStorage.setItem('token', token);
+            console.log('更新token 成功', token)
+          }
+        })
+      }
+    })
 
   }
 
