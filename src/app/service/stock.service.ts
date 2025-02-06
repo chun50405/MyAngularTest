@@ -34,7 +34,11 @@ export class StockService {
         //因為證交所API的當下成交價格有可能為空的 所以就拿委賣(委買也可以)的第一筆當作成交價格
         //可能會有些不準確 但也沒辦法
         if(oneStock.z == '-') {
-          oneStock.z = oneStock.a.split('_')[0]
+          console.log('oneStock.a=', oneStock.a)
+          if(oneStock.a) {
+            oneStock.z = oneStock.a.split('_')[0]
+          }
+          
         }
         let stockObj = {
           name: oneStock.n,
